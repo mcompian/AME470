@@ -61,6 +61,7 @@
     } else {
       return void 0;
     }
+      console.log("check");
   };
 
   Offline.getOption = function(key) {
@@ -299,6 +300,7 @@
     }
     if (Offline.getOption('checkOnLoad')) {
       return Offline.check();
+        console.log("check");
     }
   };
 

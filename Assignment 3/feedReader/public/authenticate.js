@@ -13,7 +13,7 @@ function authenticate(userID, pass, collection, db, fn) {
 }
 
 function restrict(req, res, db, fn) {
-    db.collection(req.session.collection).findOne({userID:req.session.userID}, function(err, result) {
+ db.collection(req.session.collection).findOne({userID:req.session.userID}, function(err, result) {
       if(result) { 
         if(result.userID == req.session.userID && result.password == req.session.password) {
            ret = true;
