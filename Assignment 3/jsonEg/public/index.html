@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Simple JSON</title>
+  <script src='script.js'> </script>
+  <script>
+
+    var start = function()
+    {
+      var url = "./getJSObjFromArray?id=0";
+      var callback = function(data){
+        var res = JSON.parse(data);
+        console.log(res);
+      }
+      loadURL(url, callback);
+    }
+  </script>
+  <style>
+  </style>
+</head>
+
+<body> 
+  <a href='javascript:start()' style='color: red; background: gray; border: 1px solid; border-radius: 5px; padding: 10px;text-decoration: none'> Query Server</a>
+</body>
+</html>

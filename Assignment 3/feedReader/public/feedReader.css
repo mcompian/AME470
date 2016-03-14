@@ -1,0 +1,83 @@
+#myFeedWrapper {
+    padding: 5px;
+    background: white;
+    border-radius: 5px;
+    display: inline-block;
+    width: 25%;
+    vertical-align: top;
+    min-height: 100%;
+}
+
+#currFeedWrapper {
+    padding: 5px;
+    background: white;
+    border-radius: 5px;
+    display: inline-block;
+    width: 25%;
+    vertical-align: top;
+    min-height: 100%;
+}
+
+#selFeedWrapper {
+    display: inline-block;
+    background-color: #A32217;
+    color: white;
+    width: 45%;
+    border-radius: 5px;
+    vertical-align: top;
+    min-height: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+#feedDetails {
+    background: white;
+}
+
+#myFeedList {
+    margin-top: 5%;
+    background-color: aliceblue;
+}
+
+#currFeedList {
+    margin-top: 5%;
+    background-color: aliceblue;
+}
+
+#pageTitle {
+    margin-top: 0px;
+    width: 100%;
+    color: white;
+}
+
+body {
+    background-color: #182026;
+    margin-top: 10px;
+}
+
+.listItem{
+    display: block;
+    padding: 5px;
+    white-space: word-wrap;
+    overflow: scroll;
+    text-overflow: clip;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+    background-color: aliceblue;
+}
+
+h1 {
+    text-align: center;
+    border-bottom-style: solid;
+}
+
+h2 {
+    text-align: center;
+    border-bottom-style: double;
+}
+
+p {
+    text-align: center;
+    border-bottom-style: solid;
+}
