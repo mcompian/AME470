@@ -27,19 +27,19 @@
     checks: {
       xhr: {
         url: function() {
-          return "/favicon.ico?_=" + ((new Date()).getTime());
+          return "./favicon.ico?_=" + ((new Date()).getTime());
         },
         timeout: 5000,
         type: 'HEAD'
       },
       image: {
         url: function() {
-          return "/favicon.ico?_=" + ((new Date()).getTime());
+          return "./favicon.ico?_=" + ((new Date()).getTime());
         }
       },
       active: 'xhr'
     },
-    checkOnLoad: false,
+    checkOnLoad: true,
     interceptRequests: true,
     reconnect: true,
     deDupBody: false
