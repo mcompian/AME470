@@ -80,6 +80,7 @@ function sppofUserAgent(){
     } 
     
     function assignClassNames() {
+        ENV = window.navigator;
         console.log(ENV);
         var cn = "";
         //do something
