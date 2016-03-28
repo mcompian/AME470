@@ -113,3 +113,16 @@ p {
     text-align: center;
     align-content: center;
 }
+
+.backButton.bigscreen {
+    display: none
+}
+
+.backButton.smallScreen {
+    background-color: white;
+    width: 20%;
+    height: 10%;
+    text-align: center;
+    border: none;
+    
+}
