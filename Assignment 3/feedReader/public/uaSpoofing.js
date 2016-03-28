@@ -97,12 +97,15 @@ function spoofUserAgent(){
         if (ENV.device.iOS) {
             cn += " iOS"
         }
+        else{}
         if (ENV.device.android) {
             cn += " android"
         }
+        else {}
         if (ENV.device.iPad) {
             cn += " iPad"
         }
+        else {}
         //do something
         //other class names: iOS, android, iPad, touchSupport, mouseSupport
         $(body).addClass(cn)
