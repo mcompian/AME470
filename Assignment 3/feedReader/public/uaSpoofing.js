@@ -53,12 +53,12 @@ function spoofUserAgent(){
       ENV.screen.height = $(window).height();
       ENV.screen.width = $(window).width();
     }
-    
+    /*
     var realHeight;
     var realWidth;
 
     var aspectRatio = ENV.screen.width / ENV.screen.height;
-    
+    */
 
     if (aspectRatio > 1){
       ENV.screen.orientation = "landscape";
@@ -90,6 +90,9 @@ function spoofUserAgent(){
         }
         if (ENV.device.touchSupport) {
             cn += " touchSupport"
+        }
+        else {
+            cn += " mouseSupport"
         }
         //do something
         //other class names: iOS, android, iPad, touchSupport, mouseSupport
