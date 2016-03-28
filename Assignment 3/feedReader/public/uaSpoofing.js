@@ -78,4 +78,10 @@ function sppofUserAgent(){
     else{
       ENV.screen.small = false;
     } 
+    
+    function assignClassNames() {
+        var cn = "";
+        //do something
+        $(body).addClass(cn)
+    }
   }
