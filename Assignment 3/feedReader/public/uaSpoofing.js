@@ -80,8 +80,10 @@ function sppofUserAgent(){
     } 
     
     function assignClassNames() {
+        console.log(ENV);
         var cn = "";
         //do something
+        //other class names: iOS, android, iPad, touchSupport, mouseSupport
         $(body).addClass(cn)
     }
   }
