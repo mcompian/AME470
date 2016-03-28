@@ -82,6 +82,15 @@ function sppofUserAgent(){
     function assignClassNames() {
         ENV.device = window.navigator.userAgent;
         var cn = "";
+        if (ENV.screen.small) {
+            cn += " smallScreen"
+        }
+        else {
+            cn += " bigScreen"
+        }
+        if (ENV.device.touchSupport) {
+            cn += " touchSupport"
+        }
         //do something
         //other class names: iOS, android, iPad, touchSupport, mouseSupport
         $(body).addClass(cn)
