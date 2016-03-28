@@ -13,7 +13,7 @@ var ENV = {
 }
 
 
-function sppofUserAgent(){
+function spoofUserAgent(){
     var agent = navigator.userAgent.toLowerCase();
 
     if( agent.indexOf('iphone') != -1 || agent.indexOf('ipod') != -1) {
