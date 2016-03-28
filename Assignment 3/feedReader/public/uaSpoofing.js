@@ -53,12 +53,12 @@ function sppofUserAgent(){
       ENV.screen.height = $(window).height();
       ENV.screen.width = $(window).width();
     }
-    /*
+    
     var realHeight;
     var realWidth;
 
     var aspectRatio = ENV.screen.width / ENV.screen.height;
-    */
+    
 
     if (aspectRatio > 1){
       ENV.screen.orientation = "landscape";
@@ -80,8 +80,7 @@ function sppofUserAgent(){
     } 
     
     function assignClassNames() {
-        ENV = window.navigator;
-        console.log(ENV);
+        ENV.device = window.navigator.userAgent;
         var cn = "";
         //do something
         //other class names: iOS, android, iPad, touchSupport, mouseSupport
