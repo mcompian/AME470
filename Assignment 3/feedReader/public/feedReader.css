@@ -1,4 +1,4 @@
-#myFeedWrapper {
+.bigScreen #myFeedWrapper {
     padding: 5px;
     background: white;
     border-radius: 5px;
@@ -8,7 +8,7 @@
     min-height: 100%;
 }
 
-#currFeedWrapper {
+.bigScreen #currFeedWrapper {
     padding: 5px;
     background: white;
     border-radius: 5px;
@@ -18,7 +18,7 @@
     min-height: 100%;
 }
 
-#selFeedWrapper {
+.bigScreen #selFeedWrapper {
     display: inline-block;
     background-color: #A32217;
     color: white;
@@ -30,16 +30,16 @@
     align-content: center;
 }
 
-#feedDetails {
+.bigScreen #feedDetails {
     background: white;
 }
 
-#myFeedList {
+.bigScreen #myFeedList {
     margin-top: 5%;
     background-color: aliceblue;
 }
 
-#currFeedList {
+.bigScreen #currFeedList {
     margin-top: 5%;
     background-color: aliceblue;
 }
@@ -80,4 +80,36 @@ h2 {
 p {
     text-align: center;
     border-bottom-style: solid;
+}
+
+.smallScreen #myFeedWrapper {
+    padding: 5px;
+    background: white;
+    border-radius: 5px;
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    min-height: 100%;
+}
+
+.smallScreen #currFeedWrapper {
+    padding: 5px;
+    background: white;
+    border-radius: 5px;
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    min-height: 100%;
+}
+
+.smallScreen #selFeedWrapper {
+    display: inline-block;
+    background-color: #A32217;
+    color: white;
+    width: 100%;
+    border-radius: 5px;
+    vertical-align: top;
+    min-height: 100%;
+    text-align: center;
+    align-content: center;
 }
