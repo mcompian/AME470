@@ -30,16 +30,16 @@
     align-content: center;
 }
 
-.bigScreen #feedDetails {
+#feedDetails {
     background: white;
 }
 
-.bigScreen #myFeedList {
+#myFeedList {
     margin-top: 5%;
     background-color: aliceblue;
 }
 
-.bigScreen #currFeedList {
+#currFeedList {
     margin-top: 5%;
     background-color: aliceblue;
 }
