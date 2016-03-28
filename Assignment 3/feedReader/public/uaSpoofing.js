@@ -68,7 +68,7 @@ function spoofUserAgent(){
     } 
 
     if(ENV.device.touchSupport){
-      if (ENV.screen.width < 640 || ENV.screen.height < 480){
+      if (ENV.screen.width < 1000 || ENV.screen.height < 800){
         ENV.screen.small = true;
       }
       else{
