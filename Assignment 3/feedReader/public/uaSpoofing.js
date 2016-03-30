@@ -107,6 +107,7 @@ function spoofUserAgent(){
         if (ENV.device.iPad) {
             cn += " iPad"
             ENV.device.iPad = true;
+            ENV.device.android = false;
         }
         else {}
         //do something
