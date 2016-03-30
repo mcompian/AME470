@@ -82,31 +82,31 @@ p {
     border-bottom-style: solid;
 }
 
-.smallScreen #myFeedWrapper {
+#myFeedWrapper {
     padding: 5px;
     background: white;
     border-radius: 5px;
     display: inline-block;
-    width: 100%;
+    width: 25%;
     vertical-align: top;
     min-height: 100%;
 }
 
-.smallScreen #currFeedWrapper {
+#currFeedWrapper {
     padding: 5px;
     background: white;
     border-radius: 5px;
     display: inline-block;
-    width: 100%;
+    width: 25%;
     vertical-align: top;
     min-height: 100%;
 }
 
-.smallScreen #selFeedWrapper {
+#selFeedWrapper {
     display: inline-block;
     background-color: #A32217;
     color: white;
-    width: 100%;
+    width: 45%;
     border-radius: 5px;
     vertical-align: top;
     min-height: 100%;
