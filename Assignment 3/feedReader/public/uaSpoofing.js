@@ -68,7 +68,7 @@ function spoofUserAgent(){
     } 
 
     if(ENV.device.touchSupport){
-      if (ENV.screen.width < 1000 || ENV.screen.height < 800){
+      if (ENV.screen.width < 800 || ENV.screen.height < 600){
         ENV.screen.small = true;
       }
       else{
@@ -96,18 +96,14 @@ function spoofUserAgent(){
         }
         if (ENV.device.iOS) {
             cn += " iOS"
-            ENV.device.iOS = true;
         }
         else{}
         if (ENV.device.android) {
             cn += " android"
-            ENV.device.android = true;
         }
         else {}
         if (ENV.device.iPad) {
             cn += " iPad"
-            ENV.device.iPad = true;
-            ENV.device.android = false;
         }
         else {}
         //do something
