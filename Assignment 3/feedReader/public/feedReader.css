@@ -82,7 +82,7 @@ p {
     border-bottom-style: solid;
 }
 
-#myFeedWrapper {
+.smallScreen #myFeedWrapper {
     padding: 5px;
     background: white;
     border-radius: 5px;
@@ -92,7 +92,7 @@ p {
     min-height: 100%;
 }
 
-#currFeedWrapper {
+.smallScreen #currFeedWrapper {
     padding: 5px;
     background: white;
     border-radius: 5px;
@@ -102,7 +102,7 @@ p {
     min-height: 100%;
 }
 
-#selFeedWrapper {
+.smallScreen #selFeedWrapper {
     display: inline-block;
     background-color: #A32217;
     color: white;
@@ -114,11 +114,11 @@ p {
     align-content: center;
 }
 
-.backButton.bigscreen {
+.backButton .bigscreen #backButton{
     display: none
 }
 
-.backButton.smallScreen {
+.backButton.smallScreen #backButton{
     background-color: white;
     width: 20%;
     height: 10%;
