@@ -96,14 +96,17 @@ function spoofUserAgent(){
         }
         if (ENV.device.iOS) {
             cn += " iOS"
+            ENV.device.iOS = true;
         }
         else{}
         if (ENV.device.android) {
             cn += " android"
+            ENV.device.android = true;
         }
         else {}
         if (ENV.device.iPad) {
             cn += " iPad"
+            ENV.device.iPad = true;
         }
         else {}
         //do something
