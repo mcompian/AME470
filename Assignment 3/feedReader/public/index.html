@@ -204,6 +204,10 @@ var loadMySubs = function() {
                 markUp += "<a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link + " </a>";
             }
         document.getElementById("myFeedList").innerHTML = markUp;
+        if(ENV.screen.small) {
+            $("#currFeedWrapper, #selFeedWrapper").fadeOut();
+            $("#myFeedWrapper").fadeIn();
+        }
         }
         });
 }
