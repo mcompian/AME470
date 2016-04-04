@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Feed Reader</title>
-  <script src='script.js'></script>
+    <title>Feed Reader</title>
+    <script src='script.js'></script>
     <script src='md5.js'></script>
     <script src='uaSpoofing.js'></script>
     <script src='jquery-1.12.0.js'></script>
@@ -16,251 +17,335 @@
     <script src='Ply.js' type='text/javascript'></script>
     <script src='moment.js' type='text/javascript'></script>
     <link rel="stylesheet" type="text/css" href="ply.css">
-    <link rel="stylesheet" type="text/css" href="feedReader.css">
     <link rel="stylesheet" type="text/css" href="/JReject/css/jquery.reject.css">
-    <link rel='stylesheet' type="text/css" href="/offline-master/themes/offline-theme-default-indicator.css">
-    <link rel='stylesheet' type="text/css" href="/offline-master/themes/offline-language-english-indicator.css">
-    
-    
+    <link rel='stylesheet' type="text/css" href="/offline-master/themes/offline-language-english.css">
+    <link rel='stylesheet' type="text/css" href="/offline-master/themes/offline-theme-dark.css">
+    <link rel="stylesheet" type="text/css" href="feedReader.css">
+
+
     <script type="text/javascript">
-	   $(document).ready(function(){
+        var theUser = null;
+        var allSubs = null;
+        var postObjList = null;
+        var debug = null;
+        var subIndex = null;
+        
+        $(document).ready(function () {
             reject();
-	   });
-    </script>
-    <script>
-        /*
-        Offline.options = {
-            checkOnLoad: true,
-            interceptRequests: true,
-            reconnect: {
-                initialDelay: 3,
-                delay: (1.5 * last delay, capped at 1 hour)
-            },
-            requests: true,
-            game: false
-        }*/
-        var run = function(){
+        });
+        
+        var run = function () {
             if (Offline.state === 'up') {
                 Offline.check();
             }
         }
-        setInterval(run, 2000);
-    </script>
-  <script>
-      
-var showLoginModal = function() {
-    Ply.factory('login', function (options, data, resolve) {
-        options.flags = {
-            closeBtn: false,
-            closeByEsc: true,
-            closeByOverlay: true,
-            visibleOverlayInStack: true
-        };
-        options.onaction = function (ui) {
-            var data = ui.data;
-            console.log(ui.data);
-        };
-    // Use base factory
-        Ply.factory.use('base', options, {
-        title: 'Login',
-        form: {
-            user: 'User ID',
-            password: { hint: 'Password', type: 'password' }
-        },
-        ok: 'Enter',
-        cancel: false
-        }, resolve);
-  });
-    
-    Ply.dialog('login').done(function (ui) {
-        Ply.dialog('alert', 'Bingo!');
-        console.log(hex_md5("1234"));
-    });
-}
-
-var showRegisterModal = function() {
-    Ply.factory('login', function (options, data, resolve) {
-        options.flags = {
-            closeBtn: false,
-            closeByEsc: false,
-            closeByOverlay: false,
-            visibleOverlayInStack: true
-        };
-
-        options.onaction = function (ui) {
-            var data = ui.data; 
-        };
-
-  // Use base factory
-        Ply.factory.use('base', options, {
-            title: 'Register',
-            form: {
-                email: 'E-mail',
-                password: { hint: 'Password', type: 'password' }
-            },
-            ok: 'Enter',
-            cancel: false
-        }, resolve);
-    });
-    console.log(hex_md5(password));
-
-
-// app.js
-    Ply.dialog('login').done(function (ui) {
-            Ply.dialog('alert', 'Bingo!');
-            loadMySubs();
-    });
-}
-      
-var theUser = "user";
-var allSubs = null;
-var postObjList = null;
-var debug = null;
-var subIndex = null;
-
-var aSubSelected = function(index){
-  var list = document.getElementById("myFeedList").getElementsByClassName("listItem");
-  for(var i = 0; i < list.length; i++){
-    if(i == index){
-      list[i].style.color = "red";
-      list[i].style.backgroundColor = "#F2EDDA";
-        subIndex = i;
-    }
-    else{
-      list[i].style.color = "";
-      list[i].style.backgroundColor = "";
-    }
-  }
-  var link = allSubs[index].link;
-  var url = "./getAllPosts?link=" + link;
-  loadURL(url, function(data){
-    var title = JSON.parse(data).feed.title.label;
-    postObjList = JSON.parse(data).feed.entry;
-    var markUp = "<h2>" + title + "</h2>";
-    for (var i = 0; i < postObjList.length; i++){
-        var aPost = postObjList[i];
-        markUp += "<a href='javascript:aPostSelected(" + i + ")' class='listItem'>" + aPost.title.label +" </a>";
-    }
-    document.getElementById("currFeedWrapper").innerHTML = markUp;
-  });
-}
-
-var aPostSelected = function(index) {
-    var list = document.getElementById("currFeedWrapper").getElementsByClassName("listItem");
-    for(var i = 0; i < list.length; i++){
-        if(i == index){
-            list[i].style.color = "red";
-            list[i].style.backgroundColor = "#F2EDDA";
-        }
-        else{
-            list[i].style.color = "";
-            list[i].style.backgroundColor = "";
-        }
-    }
-    var postObj = postObjList[index];
-    var markUp = "";
-    markUp += "<h2>" + postObj.title.label + "</h2>";
-    markUp += "<h2>" + postObj["im:artist"].label + "</h2>";
-    markUp += "<img src=" + postObj["im:image"][2].label + " style='height:200px;'>";
-    markUp += "<h3>" + postObj["im:price"].label + "</h3>";
-    
-    document.getElementById("selFeedWrapper").innerHTML = markUp;
-    //document.getElementById("feedDetails").innerHTML = markUp;
-}
-      
-
-var startUp = function(){
-    //showLoginModal();
-    loadMySubs();
-    spoofUserAgent();
-    
-}
-
-var addFeed = function() {
-  var link = prompt("Add New Feed URL (json)");
-  if(link == null) return;
-  var url = "./addOrEditSub?user=" + theUser;
-  url += "&link=" + encodeURIComponent(link);
-  url += "&date=" + moment().format();
-  url += "&id=" + theUser + moment().format("MMM Do YY, h:mm:ss");
-  loadURL(url, function(data){
-    loadMySubs();
-  });
-}
-
-var loadMySubs = function() {
-    
-    var url = "./listSubs?user=" + theUser;
-    loadURL(url, function(data){
-        var mySubs = JSON.parse(data);
-        allSubs = mySubs;
-        if(mySubs.length == 0){
-            document.getElementById("myFeedList").innerHTML = "No subsciptions" 
-        }
-        else {
-            var markUp = "";
-            for (var i = 0; i < mySubs.length; i++){
-                var aFeed = mySubs[i];
-                markUp += "<a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link + " </a>";
-            }
-        document.getElementById("myFeedList").innerHTML = markUp;
-        if(ENV.screen.small) {
-            $("#currFeedWrapper, #selFeedWrapper").fadeOut();
-            $("#myFeedWrapper").fadeIn();
-        }
-        }
-        });
-}
-
-var deleteSub = function(index) {
-    var answer = confirm("Are you sure you want to delete this subscription?");
-    if (answer == true) {
-        var list = document.getElementById("myFeedList").getElementsByClassName("listItem");
-        var url = "./deleteSub?user=" + theUser + "&id=" + allSubs[subIndex].id;
-        console.log(url);
-        console.log(subIndex);
-        console.log(list);
-        console.log(list[subIndex].id);
-        console.log(allSubs[subIndex]);
-        loadURL(url, function(data) {
-            loadMySubs();
-        });
-        location.reload(false);
-    }
-    else {
         
-    }
-}
+        setInterval(run, 2000);
+        var AI = {
+            show: function () {
+                var mu = "<div class='acInd fadeBox'>" +
+                    '<div class="theSpinner"> </div>' +
+                    "</div>";
+                document.body.innerHTML += mu;
+            }
+            , hide: function () {
+                $(".acInd").remove();
+            }
+        }
+
+        var showLogin = function() {
+            Ply.dialog("prompt", {
+                title: "Login",
+                form: {
+                    user: "User",
+                    password: {hint: "Password", type: "password"}
+                }
+            })
+            .then((ui) => {
+                var data = ui.data;
+                        
+                //Get email and password
+                var tempUser = data.user;
+                var password = hex_md5(data.password);
+                
+                if (tempUser.length > 0 && password.length > 0) {
+                    var url = "./login?user=" + tempUser + "&password=" + password;
+                    
+                    loadURL(url, function(data) {
+                        var res = data;
+                        
+                        if (res == "1") {
+                            user = tempUser;
+                            login();
+                        }
+                        else {
+                            Ply.dialog("alert", "Invalid email or password")
+                            .then((ui) => {
+                                showLogin();
+                            })
+                            .catch((ui) => {
+                                //Pressed cancel
+                            });
+                        }
+                    });
+                }
+            })
+            .catch((ui) => {
+                //Pressed cancel
+            });
+        }
+    
+        var showSignUp = function() {
+            Ply.dialog("prompt", {
+                title: "Sign Up",
+                form: {
+                    user: "User",
+                    password: {hint: "Password", type: "password"}
+                }
+            })
+            .then((ui) => {
+                var data = ui.data;
+                    
+                //Get email and password
+                var tempUser = data.user;
+                var password = hex_md5(data.password);
+                
+                if (tempUser.length > 0 && password.length > 0) {
+                    var url = "./createUser?user=" + tempUser + "&password=" + password;
+                    
+                    loadURL(url, function(data) {
+                        var res = data;
+                        
+                        if (res == "1") {
+                            user = tempUser;
+                            login();
+                        }
+                        else {
+                            Ply.dialog("alert", "Email already in use")
+                            .then((ui) => {
+                                showSignUp();
+                            })
+                            .catch((ui) => {
+                                //Pressed cancel
+                            });
+                        }
+                    });
+                }
+            })
+            .catch((ui) => {
+                //Pressed cancel
+            });
+        }
+    
+        var login = function() {
+            if (user != null) {
+                //Display user in top right corner
+                document.getElementById("username").innerHTML = user;
+                
+                //Change login button to logout
+                document.getElementById("loginButton").innerHTML = "Logout";
+                document.getElementById("loginButton").href = "javascript:logout()";
+                
+                //Hide sign up button
+                document.getElementById("signUpButton").style.display = "none";
+                
+                //Show add button and feed list
+                document.getElementById("addButton").style.visibility = "visible";
+                
+                loadMySubs(0); //open first feed after loading
+            }
+        }
+    
+        var logout = function() {
+            //Clear out user
+            user = null;
+            document.getElementById("username").innerHTML = "";
+            
+            //Change logout button to login
+            document.getElementById("loginButton").innerHTML = "Login";
+            document.getElementById("loginButton").href = "javascript:showLogin()";
+            
+            //Show sign up button
+            document.getElementById("signUpButton").style.display = "";
+            
+            if (ENV.screen.small) {
+                //Hide back button
+                document.getElementById("backButton").style.display = "none";
+            }
+            
+            //Hide add button and feed list
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("myFeedList").innerHTML = "Login or sign up to view your feeds!";
+            
+            loadMySubs(-1); //no feeds to open
+        }
+
+        var aSubSelected = function (index) {
+            AI.show();
+            var list = document.getElementById("myFeedList").getElementsByClassName("listItem");
+            for (var i = 0; i < list.length; i++) {
+                if (i == index) {
+                    list[i].style.color = "red";
+                    list[i].style.backgroundColor = "#F2EDDA";
+                    subIndex = i;
+                } else {
+                    list[i].style.color = "";
+                    list[i].style.backgroundColor = "";
+                }
+            }
+            var link = allSubs[index].link;
+            var url = "./getAllPosts?link=" + link;
+            loadURL(url, function (data) {
+                var title = JSON.parse(data).feed.title.label;
+                postObjList = JSON.parse(data).feed.entry;
+                var markUp = "<h2>" + title + "</h2>";
+                for (var i = 0; i < postObjList.length; i++) {
+                    var aPost = postObjList[i];
+                    markUp += "<a href='javascript:aPostSelected(" + i + ")' class='listItem'>" + aPost.title.label + " </a>";
+                }
+                document.getElementById("currFeedWrapper").innerHTML = '<a href="javascript:backToMyFeeds()" class="backButton">Back</a>' + markUp;
+                if (ENV.screen.small) {
+                    $("#myFeedWrapper, #selFeedWrapper").fadeOut();
+                    $("#currFeedWrapper").fadeIn();
+                }
+                AI.hide();
+            });
+        }
+
+        var aPostSelected = function (index) {
+            AI.show();
+            var list = document.getElementById("currFeedWrapper").getElementsByClassName("listItem");
+            for (var i = 0; i < list.length; i++) {
+                if (i == index) {
+                    list[i].style.color = "red";
+                    list[i].style.backgroundColor = "#F2EDDA";
+                } else {
+                    list[i].style.color = "";
+                    list[i].style.backgroundColor = "";
+                }
+            }
+            var postObj = postObjList[index];
+            var markUp = "";
+            markUp += "<h2>" + postObj.title.label + "</h2>";
+            markUp += "<h2>" + postObj["im:artist"].label + "</h2>";
+            markUp += "<img src=" + postObj["im:image"][2].label + " style='height:200px;'>";
+            markUp += "<h3>" + postObj["im:price"].label + "</h3>";
+
+            document.getElementById("selFeedWrapper").innerHTML = "<a href='javascript:backToMyPosts()' class='backButton'>Back</a>" + markUp;
+            //document.getElementById("feedDetails").innerHTML = markUp;
+            if (ENV.screen.small) {
+                $("#myFeedWrapper, #currFeedWrapper").fadeOut();
+                $("#selFeedWrapper").fadeIn();
+            }
+            AI.hide();
+        }
 
 
-  </script>
+        var startUp = function () {
+            spoofUserAgent();
+            showLogin();
+            //loadMySubs();
+        }
+
+        var addFeed = function () {
+            var link = prompt("Add New Feed URL (json)");
+            if (link == null) return;
+            var url = "./addOrEditSub?user=" + theUser;
+            url += "&link=" + encodeURIComponent(link);
+            url += "&date=" + moment().format();
+            url += "&id=" + theUser + moment().format("MMM Do YY, h:mm:ss");
+            loadURL(url, function (data) {
+                loadMySubs();
+            });
+        }
+
+        var loadMySubs = function () {
+
+            var url = "./listSubs?user=" + theUser;
+            loadURL(url, function (data) {
+                var mySubs = JSON.parse(data);
+                allSubs = mySubs;
+                if (mySubs.length == 0) {
+                    document.getElementById("myFeedList").innerHTML = "No subsciptions"
+                } else {
+                    var markUp = "";
+                    for (var i = 0; i < mySubs.length; i++) {
+                        var aFeed = mySubs[i];
+                        markUp += "<a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link + " </a>";
+                    }
+                    document.getElementById("myFeedList").innerHTML = markUp;
+                    if (ENV.screen.small) {
+                        $("#currFeedWrapper, #selFeedWrapper").fadeOut();
+                        $("#myFeedWrapper").fadeIn();
+                    }
+                }
+            });
+        }
+
+        var deleteSub = function (index) {
+            var answer = confirm("Are you sure you want to delete this subscription?");
+            if (answer == true) {
+                var list = document.getElementById("myFeedList").getElementsByClassName("listItem");
+                var url = "./deleteSub?user=" + theUser + "&id=" + allSubs[subIndex].id;
+                console.log(url);
+                console.log(subIndex);
+                console.log(list);
+                console.log(list[subIndex].id);
+                console.log(allSubs[subIndex]);
+                loadURL(url, function (data) {
+                    loadMySubs();
+                });
+                location.reload(false);
+            } else {
+
+            }
+        }
+
+        var backToMyFeeds = function () {
+            if (ENV.screen.small) {
+                $("#currFeedWrapper, #selFeedWrapper").fadeOut();
+                $("#myFeedWrapper").fadeIn();
+            }
+        }
+
+        var backToMyPosts = function () {
+            if (ENV.screen.small) {
+                $("#myFeedWrapper, #selFeedWrapper").fadeOut();
+                $("#currFeedWrapper").fadeIn();
+            }
+        }
+    </script>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 
-<body onload='startUp()' onload='reject()' onload='run()'> 
+<body onload='startUp()' onload='reject()' onload='run()'>
     <div id='pageTitle'>
-        <h1> Feed Reader!</h1>
+        <h1> Feed Reader</h1>
     </div>
-  <div id='myFeedWrapper'>
-    <h2> My Feeds </h2>
-    <a href='javascript:addFeed()' style='text-decoration: none;padding: 5px; background: white; color: black; border-radius: 5px; border 1px solid black;margin:10px; box-shadow: 0px 0px 2px;'> Add New </a> <br><br>
-      <a href='javascript:deleteSub(subIndex)' style='text-decoration: none;padding: 5px; background: white; color: black; border-radius: 5px; border 1px solid black;margin:10px; box-shadow: 0px 0px 2px;'> Delete Subscription </a>
-    <div id='myFeedList'> </div>
-  </div>
-  <div id='currFeedWrapper'>
-      <a href='javascript:backToMyFeeds()' class='backButton'>Back</a>
-    <h2> </h2>
-    <div id='currFeedList'> </div>
- </div>
-  <div id='selFeedWrapper'>
-      <a href='javascript:backToMyFeeds()' class='backButton'>Back</a>
-    <h2> </h2>
-    <div id='feedDetails'> </div>
-  </div>
+    <div id='myFeedWrapper'>
+        <h2> My Feeds </h2>
+        <a href='javascript:addFeed()' style='text-decoration: none;padding: 5px; background: white; color: black; border-radius: 5px; border 1px solid black;margin:10px; box-shadow: 0px 0px 2px;'> Add New </a>
+        <br>
+        <br>
+        <a href='javascript:deleteSub(subIndex)' style='text-decoration: none;padding: 5px; background: white; color: black; border-radius: 5px; border 1px solid black;margin:10px; box-shadow: 0px 0px 2px;'> Delete Subscription </a>
+        <div id='myFeedList'> </div>
+    </div>
+    <div id='currFeedWrapper'>
+
+        <h2> </h2>
+        <div id='currFeedList'> </div>
+    </div>
+    <div id='selFeedWrapper'>
+        <h2> </h2>
+        <div id='feedDetails'> </div>
+    </div>
 </body>
-    <script> 
-    var reject = function(){
-        $(function() { $.reject(); });
+<script>
+    var reject = function () {
+        $(function () {
+            $.reject();
+        });
     }
-    </script>
+</script>
+
 </html>

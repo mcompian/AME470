@@ -44,18 +44,18 @@
     background-color: aliceblue;
 }
 
-#pageTitle {
+.bigScreen #pageTitle {
     margin-top: 0px;
     width: 100%;
     color: white;
 }
 
-body {
+.bigScreen body {
     background-color: #182026;
     margin-top: 10px;
 }
 
-.listItem{
+.listItem {
     display: block;
     padding: 5px;
     white-space: word-wrap;
@@ -67,19 +67,15 @@ body {
     background-color: aliceblue;
 }
 
-h1 {
-    text-align: center;
-    border-bottom-style: solid;
+.smallScreen #pageTitle {
+    margin-top: 0px;
+    width: 100%;
+    color: white;
 }
 
-h2 {
-    text-align: center;
-    border-bottom-style: double;
-}
-
-p {
-    text-align: center;
-    border-bottom-style: solid;
+.smallScreen body {
+    background-color: #182026;
+    margin-top: 10px;
 }
 
 .smallScreen #myFeedWrapper {
@@ -114,15 +110,81 @@ p {
     align-content: center;
 }
 
-.backButton .bigscreen #backButton{
-    display: none
+.smallScreen #feedDetails {
+    background: white;
 }
 
-.backButton.smallScreen #backButton{
+.smallScreen #myFeedList {
+    margin-top: 5%;
+    background-color: aliceblue;
+}
+
+#currFeedList {
+    margin-top: 5%;
+    background-color: aliceblue;
+}
+
+#pageTitle {
+    margin-top: 0px;
+    width: 100%;
+    color: white;
+}
+
+body {
+    background-color: #182026;
+    margin-top: 10px;
+}
+
+.listItem {
+    display: block;
+    padding: 5px;
+    white-space: word-wrap;
+    overflow: scroll;
+    text-overflow: clip;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+    background-color: aliceblue;
+}
+
+h1 {
+    text-align: center;
+    border-bottom-style: solid;
+}
+
+h2 {
+    text-align: center;
+    border-bottom-style: double;
+    border-bottom-color: black;
+}
+
+p {
+    text-align: center;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+}
+
+.bigScreen .backButton {
+    display: none;
+}
+
+.backButton {
+    margin: 0 auto;
     background-color: white;
-    width: 20%;
+    color: black;
     height: 10%;
     text-align: center;
-    border: none;
-    
+    border: solid;
+    border-width: thin;
+    border-radius: 5px;
+    border-color: block;
+    padding: 5px;
+    display: inline-block;
+}
+
+.fadeBox {
+    position: fixed;
+    height: 100%;
+    width: 100;
+    background-color: rgba(255, 255, 255, 0.4);
 }
