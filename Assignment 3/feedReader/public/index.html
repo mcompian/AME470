@@ -24,7 +24,7 @@
 
 
     <script type="text/javascript">
-        var theUser = null;
+        var theUser = "user";
         var allSubs = null;
         var postObjList = null;
         var debug = null;
@@ -243,8 +243,8 @@
 
         var startUp = function () {
             spoofUserAgent();
-            showLogin();
-            //loadMySubs();
+            //showLogin();
+            loadMySubs();
         }
 
         var addFeed = function () {
