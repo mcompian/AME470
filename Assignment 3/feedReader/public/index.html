@@ -200,6 +200,7 @@
             var link = allSubs[index].link;
             var url = "./getAllPosts?link=" + link;
             loadURL(url, function (data) {
+                console.log(JSON.parse(data));
                 var title = JSON.parse(data).feed.title.label;
                 postObjList = JSON.parse(data).feed.entry;
                 var markUp = "<h2>" + title + "</h2>";
@@ -255,13 +256,9 @@
             var link = prompt("Add New Feed URL (json)");
             if (link == null) return;
             var url = "./addOrEditSub?user=" + theUser;
-            loadURL(url, function (data) {
-                var obj = JSON.parse(data).feed;
-                console.log(obj);
-                url += "&link=" + encodeURIComponent(link);
-                url += "&date=" + moment().format();
-                url += "&id=" + theUser + moment().format("MMM Do YY, h:mm:ss");
-            });
+            url += "&link=" + encodeURIComponent(link);
+            url += "&date=" + moment().format();
+            url += "&id=" + theUser + moment().format("MMM Do YY, h:mm:ss");
             loadURL(url, function (data) {
                 loadMySubs();
             });
