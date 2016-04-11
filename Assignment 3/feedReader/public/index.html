@@ -200,7 +200,6 @@
             var link = allSubs[index].link;
             var url = "./getAllPosts?link=" + link;
             loadURL(url, function (data) {
-                console.log(JSON.parse(data));
                 var title = JSON.parse(data).feed.title.label;
                 postObjList = JSON.parse(data).feed.entry;
                 var markUp = "<h2>" + title + "</h2>";
@@ -230,10 +229,13 @@
                 }
             }
             var postObj = postObjList[index];
+            console.log(postObj);
             var markUp = "";
             markUp += "<h2>" + postObj.title.label + "</h2>";
+            markUp += "<p>Released: " + postObj["im:releaseDate"].attributes.label + "</p>"
             markUp += "<h2>" + postObj["im:artist"].label + "</h2>";
             markUp += "<img src=" + postObj["im:image"][2].label + " style='height:200px;'>";
+            markUp += "<p>" + postObj.summary.label + "</p>"
             markUp += "<h3>" + postObj["im:price"].label + "</h3>";
 
             document.getElementById("selFeedWrapper").innerHTML = "<a href='javascript:backToMyPosts()' class='backButton'>Back</a>" + markUp;
@@ -254,6 +256,7 @@
 
         var addFeed = function () {
             var link = prompt("Add New Feed URL (json)");
+            var subID;
             if (link == null) return;
             var url = "./addOrEditSub?user=" + theUser;
             url += "&link=" + encodeURIComponent(link);
@@ -276,7 +279,7 @@
                     var markUp = "";
                     for (var i = 0; i < mySubs.length; i++) {
                         var aFeed = mySubs[i];
-                        markUp += "<a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link + " </a>";
+                        markUp += "<a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + "<br>Subscribed " + moment(aFeed.date).startOf('hour').fromNow() + " " + "</a>";
                     }
                     document.getElementById("myFeedList").innerHTML = markUp;
                     if (ENV.screen.small) {
@@ -336,8 +339,7 @@
         <div id='myFeedList'> </div>
     </div>
     <div id='currFeedWrapper'>
-
-        <h2> </h2>
+        <h2></h2>
         <div id='currFeedList'> </div>
     </div>
     <div id='selFeedWrapper'>

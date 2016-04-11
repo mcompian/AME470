@@ -28,6 +28,8 @@
     min-height: 100%;
     text-align: center;
     align-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #feedDetails {
@@ -89,7 +91,7 @@
 }
 
 .smallScreen #currFeedWrapper {
-    padding: 5px;
+    padding: 10px;
     background: white;
     border-radius: 5px;
     display: inline-block;
