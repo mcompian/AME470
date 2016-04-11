@@ -235,7 +235,7 @@
             markUp += "<p>Released: " + postObj["im:releaseDate"].attributes.label + "</p>"
             markUp += "<h2>" + postObj["im:artist"].label + "</h2>";
             markUp += "<img src=" + postObj["im:image"][2].label + " style='height:200px;'>";
-            //markUp += "<p>" + postObj.summary.label + "</p>"
+            markUp += "<p>" + postObj.summary.label + "</p>"
             markUp += "<h3>" + postObj["im:price"].label + "</h3>";
 
             document.getElementById("selFeedWrapper").innerHTML = "<a href='javascript:backToMyPosts()' class='backButton'>Back</a>" + markUp;
