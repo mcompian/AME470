@@ -256,7 +256,7 @@
             if (link == null) return;
             var url = "./addOrEditSub?user=" + theUser;
             loadURL(url, function (data) {
-                var obj = JSON.parse(data);
+                var obj = JSON.parse(data).feed;
                 console.log(obj);
                 url += "&link=" + encodeURIComponent(link);
                 url += "&date=" + moment().format();
