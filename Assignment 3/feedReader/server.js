@@ -35,10 +35,7 @@ app.get('/listSubs', function (req, res) {
 
 app.get('/deleteSub', function (req, res) {
     var info = req.query;
-    db.collection('subs').remove({
-        user: info.user
-        , id: info.id
-    }, function (err, result) {
+    db.collection('subs').remove({user: info.user, id: info.id}, function (err, result) {
         if (err) {
             res.send("0")
         } else {
@@ -49,9 +46,7 @@ app.get('/deleteSub', function (req, res) {
 
 app.get('/addOrEditSub', function (req, res) {
     var info = req.query;
-    db.collection('subs').findOne({
-        link: info.link
-    }, function (err, result) {
+    db.collection('subs').findOne({link: info.link}, function (err, result) {
         if (result) {
             var temp = Object.keys(info);
             var key;
