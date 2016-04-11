@@ -254,8 +254,6 @@
         var addFeed = function () {
             var link = prompt("Add New Feed URL (json)");
             if (link == null) return;
-            var link2 = JSON.parse(link);
-            console.log(link2);
             var url = "./addOrEditSub?user=" + theUser;
             loadURL(url, function (data) {
                 var obj = JSON.parse(data);
