@@ -264,6 +264,7 @@
             var url = "./listSubs?user=" + theUser;
             loadURL(url, function (data) {
                 var mySubs = JSON.parse(data);
+                console.log(mySubs);
                 allSubs = mySubs;
                 if (mySubs.length == 0) {
                     document.getElementById("myFeedList").innerHTML = "No subsciptions"
