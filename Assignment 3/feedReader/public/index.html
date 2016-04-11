@@ -29,17 +29,17 @@
         var postObjList = null;
         var debug = null;
         var subIndex = null;
-        
+
         $(document).ready(function () {
             reject();
         });
-        
+
         var run = function () {
             if (Offline.state === 'up') {
                 Offline.check();
             }
         }
-        
+
         setInterval(run, 2000);
         var AI = {
             show: function () {
@@ -53,130 +53,134 @@
             }
         }
 
-        var showLogin = function() {
+        var showLogin = function () {
             Ply.dialog("prompt", {
-                title: "Login",
-                form: {
-                    user: "User",
-                    password: {hint: "Password", type: "password"}
-                }
-            })
-            .then((ui) => {
-                var data = ui.data;
-                        
-                //Get email and password
-                var tempUser = data.user;
-                var password = hex_md5(data.password);
-                
-                if (tempUser.length > 0 && password.length > 0) {
-                    var url = "./login?user=" + tempUser + "&password=" + password;
-                    
-                    loadURL(url, function(data) {
-                        var res = data;
-                        
-                        if (res == "1") {
-                            user = tempUser;
-                            login();
+                    title: "Login"
+                    , form: {
+                        user: "User"
+                        , password: {
+                            hint: "Password"
+                            , type: "password"
                         }
-                        else {
-                            Ply.dialog("alert", "Invalid email or password")
-                            .then((ui) => {
-                                showLogin();
-                            })
-                            .catch((ui) => {
-                                //Pressed cancel
-                            });
-                        }
-                    });
-                }
-            })
-            .catch((ui) => {
-                //Pressed cancel
-            });
+                    }
+                })
+                .then((ui) => {
+                    var data = ui.data;
+
+                    //Get email and password
+                    var tempUser = data.user;
+                    var password = hex_md5(data.password);
+
+                    if (tempUser.length > 0 && password.length > 0) {
+                        var url = "./login?user=" + tempUser + "&password=" + password;
+
+                        loadURL(url, function (data) {
+                            var res = data;
+
+                            if (res == "1") {
+                                user = tempUser;
+                                login();
+                            } else {
+                                Ply.dialog("alert", "Invalid email or password")
+                                    .then((ui) => {
+                                        showLogin();
+                                    })
+                                    .catch((ui) => {
+                                        //Pressed cancel
+                                    });
+                            }
+                        });
+                    }
+                })
+                .catch((ui) => {
+                    //Pressed cancel
+                });
         }
-    
-        var showSignUp = function() {
+
+        var showSignUp = function () {
             Ply.dialog("prompt", {
-                title: "Sign Up",
-                form: {
-                    user: "User",
-                    password: {hint: "Password", type: "password"}
-                }
-            })
-            .then((ui) => {
-                var data = ui.data;
-                    
-                //Get email and password
-                var tempUser = data.user;
-                var password = hex_md5(data.password);
-                
-                if (tempUser.length > 0 && password.length > 0) {
-                    var url = "./createUser?user=" + tempUser + "&password=" + password;
-                    
-                    loadURL(url, function(data) {
-                        var res = data;
-                        
-                        if (res == "1") {
-                            user = tempUser;
-                            login();
+                    title: "Sign Up"
+                    , form: {
+                        user: "User"
+                        , password: {
+                            hint: "Password"
+                            , type: "password"
                         }
-                        else {
-                            Ply.dialog("alert", "Email already in use")
-                            .then((ui) => {
-                                showSignUp();
-                            })
-                            .catch((ui) => {
-                                //Pressed cancel
-                            });
-                        }
-                    });
-                }
-            })
-            .catch((ui) => {
-                //Pressed cancel
-            });
+                    }
+                })
+                .then((ui) => {
+                    var data = ui.data;
+
+                    //Get email and password
+                    var tempUser = data.user;
+                    var password = hex_md5(data.password);
+
+                    if (tempUser.length > 0 && password.length > 0) {
+                        var url = "./createUser?user=" + tempUser + "&password=" + password;
+
+                        loadURL(url, function (data) {
+                            var res = data;
+
+                            if (res == "1") {
+                                user = tempUser;
+                                login();
+                            } else {
+                                Ply.dialog("alert", "Email already in use")
+                                    .then((ui) => {
+                                        showSignUp();
+                                    })
+                                    .catch((ui) => {
+                                        //Pressed cancel
+                                    });
+                            }
+                        });
+                    }
+                })
+                .catch((ui) => {
+                    //Pressed cancel
+                });
         }
-    
-        var login = function() {
+
+        var login = function () {
             if (user != null) {
                 //Display user in top right corner
                 document.getElementById("username").innerHTML = user;
-                
+
                 //Change login button to logout
                 document.getElementById("loginButton").innerHTML = "Logout";
                 document.getElementById("loginButton").href = "javascript:logout()";
-                
+
                 //Hide sign up button
                 document.getElementById("signUpButton").style.display = "none";
-                
+
                 //Show add button and feed list
                 document.getElementById("addButton").style.visibility = "visible";
-                
+
                 loadMySubs(0); //open first feed after loading
             }
         }
-    
-        var logout = function() {
+
+        var logout = function () {
             //Clear out user
             user = null;
             document.getElementById("username").innerHTML = "";
-            
+
             //Change logout button to login
             document.getElementById("loginButton").innerHTML = "Login";
             document.getElementById("loginButton").href = "javascript:showLogin()";
-            
+
             //Show sign up button
             document.getElementById("signUpButton").style.display = "";
-            
+
             if (ENV.screen.small) {
                 //Hide back button
                 document.getElementById("backButton").style.display = "none";
             }
-            
+
             //Hide add button and feed list
             document.getElementById("addButton").style.visibility = "hidden";
             document.getElementById("myFeedList").innerHTML = "Login or sign up to view your feeds!";
-            
+
             loadMySubs(-1); //no feeds to open
         }
 
@@ -250,10 +254,16 @@
         var addFeed = function () {
             var link = prompt("Add New Feed URL (json)");
             if (link == null) return;
+            var link2 = JSON.parse(link);
+            console.log(link2);
             var url = "./addOrEditSub?user=" + theUser;
-            url += "&link=" + encodeURIComponent(link);
-            url += "&date=" + moment().format();
-            url += "&id=" + theUser + moment().format("MMM Do YY, h:mm:ss");
+            loadURL(url, function (data) {
+                var obj = JSON.parse(data);
+                console.log(obj);
+                url += "&link=" + encodeURIComponent(link);
+                url += "&date=" + moment().format();
+                url += "&id=" + theUser + moment().format("MMM Do YY, h:mm:ss");
+            });
             loadURL(url, function (data) {
                 loadMySubs();
             });
@@ -264,7 +274,6 @@
             var url = "./listSubs?user=" + theUser;
             loadURL(url, function (data) {
                 var mySubs = JSON.parse(data);
-                console.log(mySubs);
                 allSubs = mySubs;
                 if (mySubs.length == 0) {
                     document.getElementById("myFeedList").innerHTML = "No subsciptions"
