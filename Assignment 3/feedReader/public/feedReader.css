@@ -71,7 +71,7 @@
 
 .smallScreen #pageTitle {
     margin-top: 0px;
-    width: 100%;
+    width: 96%;
     color: white;
 }
 
@@ -85,31 +85,34 @@
     background: white;
     border-radius: 5px;
     display: inline-block;
-    width: 100%;
+    width: 93%;
     vertical-align: top;
     min-height: 100%;
+    position: absolute;
 }
 
 .smallScreen #currFeedWrapper {
-    padding: 10px;
+    padding: 5px;
     background: white;
     border-radius: 5px;
     display: inline-block;
-    width: 98%;
+    width: 93%;
     vertical-align: top;
     min-height: 100%;
+    position: absolute;
 }
 
 .smallScreen #selFeedWrapper {
     display: inline-block;
     background-color: #A32217;
     color: white;
-    width: 100%;
+    width: 96%;
     border-radius: 5px;
     vertical-align: top;
     min-height: 100%;
     text-align: center;
     align-content: center;
+    position: absolute;
 }
 
 .smallScreen #feedDetails {
@@ -171,7 +174,7 @@ p {
 }
 
 .backButton {
-    margin: 0 auto;
+    margin: 0;
     background-color: white;
     color: black;
     height: 10%;
@@ -179,14 +182,50 @@ p {
     border: solid;
     border-width: thin;
     border-radius: 5px;
-    border-color: block;
+    border-color: black;
     padding: 5px;
     display: inline-block;
+    align-content: flex-start;
 }
 
 .fadeBox {
-    position: fixed;
     height: 100%;
-    width: 100;
-    background-color: rgba(255, 255, 255, 0.4);
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: auto;
+}
+
+@-webkit-keyframes infinite-spinning {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes infinite-spinning {
+    0% {
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(360deg);
+    }
+}
+
+.theSpinner {
+    -webkit-animation: infinite-spinning 1s infinite linear;
+    animation: infinite-spinning 1s infinite linear;
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, .4);
+    margin: auto;
+    margin-top: 50%;
 }
